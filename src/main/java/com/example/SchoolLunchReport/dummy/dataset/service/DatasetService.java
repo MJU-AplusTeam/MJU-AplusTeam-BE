@@ -117,4 +117,8 @@ public class DatasetService {
         feedBackJpaRepo.saveAll(feedBackList);
         return feedBackList.size();
     }
+    @Transactional(readOnly = true)
+    public List<Menu> getAllMenus() {
+        return menuJpaRepository.findAll();
+    }
 }
