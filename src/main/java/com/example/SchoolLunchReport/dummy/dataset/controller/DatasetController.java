@@ -3,6 +3,7 @@ import com.example.SchoolLunchReport.dummy.dataset.dto.FeedBackDTO;
 import com.example.SchoolLunchReport.dummy.dataset.dto.MenuWithFoodsDTO;
 import com.example.SchoolLunchReport.dummy.dataset.service.DatasetService;
 import com.example.SchoolLunchReport.product.food.domain.entity.Food;
+import com.example.SchoolLunchReport.product.menu.domain.entity.Menu;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -47,5 +48,11 @@ public class DatasetController {
         response.put("message", "랜덤 피드백 데이터가 성공적으로 생성되었습니다");
         response.put("count", count);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("allmenu")
+    public ResponseEntity<List<Menu>> getAllMenus() {
+        List<Menu> menus = datasetService.getAllMenus();
+        return ResponseEntity.ok(menus);
     }
 }
