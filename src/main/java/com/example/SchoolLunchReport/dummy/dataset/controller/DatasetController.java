@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @RestController
-@RequestMapping("/api/team3/dataset/")
+@RequestMapping("/api/team3/analytics/dataset")
 public class DatasetController {
 
     private final DatasetService datasetService;
