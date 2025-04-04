@@ -1,5 +1,4 @@
 package com.example.SchoolLunchReport.product.food.domain.entity;
-
 import com.example.SchoolLunchReport.product.food.domain.type.Category;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +9,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 @Entity
 @Getter
 @NoArgsConstructor
 public class Food {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +21,6 @@ public class Food {
     private String nutrition;
     private Double calorie;
     private String allergy;
-
     @Builder
     public Food(String name, Category category, String nutrition, Double calorie,
         String allergy) {
