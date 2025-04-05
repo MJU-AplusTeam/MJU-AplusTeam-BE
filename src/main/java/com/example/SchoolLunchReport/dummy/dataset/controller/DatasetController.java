@@ -1,5 +1,7 @@
 package com.example.SchoolLunchReport.dummy.dataset.controller;
 
+import static com.example.SchoolLunchReport.global.common.Constants.ANALYTICS_TEAM_URL;
+
 import com.example.SchoolLunchReport.dummy.dataset.dto.FeedBackDTO;
 import com.example.SchoolLunchReport.dummy.dataset.dto.MenuWithFoodsDTO;
 import com.example.SchoolLunchReport.dummy.dataset.service.DatasetService;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/team3/analytics/dataset")
+@RequestMapping(ANALYTICS_TEAM_URL + "/dataset")
 public class DatasetController implements DataControllerDocs {
 
     private final DatasetService datasetService;
