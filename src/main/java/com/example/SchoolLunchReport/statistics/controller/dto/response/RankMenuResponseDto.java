@@ -1,6 +1,5 @@
-package com.example.SchoolLunchReport.statistics.rank.controller.dto;
+package com.example.SchoolLunchReport.statistics.controller.dto.response;
 
-import com.example.SchoolLunchReport.product.food.domain.entity.Food;
 import java.util.List;
 import lombok.Builder;
 
