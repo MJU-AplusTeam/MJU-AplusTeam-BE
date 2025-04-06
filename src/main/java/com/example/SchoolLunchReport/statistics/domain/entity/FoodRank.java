@@ -15,31 +15,33 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Rank {
+public class FoodRank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    
     @ManyToOne
     Food food;
     LocalDate startPeriod;
     PeriodType periodType;
-    Integer rank;
+    Integer ranking;
     Double score;
-    Integer previousRank;
+    Integer previousRanking;
 
     @Builder
-    public Rank(Food food, LocalDate startPeriod, PeriodType periodType, Integer rank, Double score,
-        Integer previousRank) {
+    public FoodRank(Food food, LocalDate startPeriod, PeriodType periodType, Integer ranking,
+        Double score,
+        Integer previousRanking) {
         this.food = food;
         this.startPeriod = startPeriod;
         this.periodType = periodType;
-        this.rank = rank;
+        this.ranking = ranking;
         this.score = score;
-        this.previousRank = previousRank;
+        this.previousRanking = previousRanking;
     }
 
     public Integer getRankGap() {
-        return rank - previousRank;
+        return ranking - previousRanking;
     }
 }
