@@ -12,26 +12,10 @@ public record StatisticsResponse(
     List<ScoreCount> scores
 ) {
 
-    @AllArgsConstructor
-    public static class ScoreCount {
+    public record ScoreCount(
+        int score,
+        long count
+    ) {
 
-        private int score;
-        private long count;
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (!(o instanceof ScoreCount)) {
-                return false;
-            }
-            return this.score == ((ScoreCount) o).score && this.count == ((ScoreCount) o).count;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(score, count);
-        }
     }
 }

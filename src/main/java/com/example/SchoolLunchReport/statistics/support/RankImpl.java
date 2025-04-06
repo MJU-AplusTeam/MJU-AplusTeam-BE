@@ -1,11 +1,11 @@
-package com.example.SchoolLunchReport.statistics.impl;
+package com.example.SchoolLunchReport.statistics.support;
 
 import com.example.SchoolLunchReport.product.food.domain.entity.Food;
 import com.example.SchoolLunchReport.statistics.controller.dto.response.StatisticsResponse;
 import com.example.SchoolLunchReport.statistics.controller.dto.response.StatisticsResponse.ScoreCount;
 import com.example.SchoolLunchReport.statistics.domain.entity.FeedBack;
 import com.example.SchoolLunchReport.statistics.controller.dto.response.RankMenuResponseDto;
-import com.example.SchoolLunchReport.statistics.domain.entity.Rank;
+import com.example.SchoolLunchReport.statistics.domain.entity.FoodRank;
 import com.example.SchoolLunchReport.statistics.domain.type.PeriodType;
 import com.example.SchoolLunchReport.statistics.domain.type.RankType;
 import com.example.SchoolLunchReport.statistics.repository.RankJpaRepo;
@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,22 +29,25 @@ public class RankImpl {
         LocalDate conditionDate,
         RankType rankType
     ) {
-        List<Rank> rankList;
+        List<FoodRank> foodRankList;
         if (rankType.equals(RankType.TOP)) {
-            rankList = rankJpaRepo.findTop5ByPeriodTypeAndStartPeriodOrderByRankAsc(
+            foodRankList = rankJpaRepo.findTop5ByPeriodTypeAndStartPeriodOrderByRankingAsc(
                 periodType,
-                conditionDate);
+                conditionDate
+            );
         } else {
-            rankList = rankJpaRepo.findTop5ByPeriodTypeAndStartPeriodOrderByRankDesc(
+            foodRankList = rankJpaRepo.findTop5ByPeriodTypeAndStartPeriodOrderByRankingDesc(
                 periodType,
-                conditionDate);
+                conditionDate
+            );
         }
 
-        return getRankMenuResponseDtoList(rankList);
+        return getRankMenuResponseDtoList(foodRankList);
     }
 
-    private static List<RankMenuResponseDto> getRankMenuResponseDtoList(List<Rank> topRanks) {
-        return topRanks.stream()
+    private static List<RankMenuResponseDto> getRankMenuResponseDtoList(
+        List<FoodRank> topFoodRanks) {
+        return topFoodRanks.stream()
             .map(RankMenuResponseDto::from)
             .toList();
     }
@@ -66,18 +70,20 @@ public class RankImpl {
             .build();
     }
 
-    public RankMenuResponseDto getTrendingMenu(List<FeedBack> feedBackList, PeriodType periodType) {
-
-        return null;
+    public List<FoodRank> getTrendingMenu(LocalDate conditionDate, PeriodType periodType) {
+        return rankJpaRepo.findTop5ByRankGapDesc(
+            periodType,
+            conditionDate,
+            PageRequest.of(0, 5));
     }
 
-    public Rank findByFoodAndPeriodTypeAndStartPeriod(Food food, PeriodType periodType,
+    public FoodRank findByFoodAndPeriodTypeAndStartPeriod(Food food, PeriodType periodType,
         LocalDate lastWeek) {
         return rankJpaRepo.findByFoodAndPeriodTypeAndStartPeriod(
             food, periodType, lastWeek);
     }
 
-    public void saveAll(List<Rank> newRankList) {
-        rankJpaRepo.saveAll(newRankList);
+    public void saveAll(List<FoodRank> newFoodRankList) {
+        rankJpaRepo.saveAll(newFoodRankList);
     }
 }
